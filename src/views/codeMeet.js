@@ -1,5 +1,4 @@
 import { recoverUserName, changeViewToProfile, signOutUser } from '../controller/home-controller.js';
-// eslint-disable-next-line import/no-cycle
 import { allNotes, myPostNotes } from '../controller/post-controller.js';
 import { recoverDataProfile } from '../controller/profile-controller.js';
 

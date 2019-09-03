@@ -1,11 +1,9 @@
-/* eslint-disable import/no-cycle */
 import { signOutUser } from '../controller/home-controller.js';
 import { updateProfile, getData } from '../controller/profile-controller.js';
 import { userCurrent } from '../model/controller-authentication.js';
 
 export default () => {
   const profile = document.createElement('div');
-  // profile.className = 'profile-div';
   const profileContent = ` <header>
   <h2 class="white">Meet and Code</h2> 
     <nav class="nav-links flex menu-bar">
@@ -65,8 +63,6 @@ export default () => {
     const newDescription = descriptionText.value;
 
     updateProfile(newName, newEmail, newJob, newDescription).then(() => {
-      // Update successful.
-      // console.log('Datos cambiados');
       window.location.hash = '#/codeMeet';
     });
   });

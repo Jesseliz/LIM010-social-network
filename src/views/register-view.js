@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import { registerFunction } from '../controller/register-controller.js';
 
 export default () => {

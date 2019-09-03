@@ -218,11 +218,6 @@ p {
 }
 .fa-eye:before {
   content: "\f06e";
-  /* float: right; */
-  /* margin-left: 210px; */
-  /* margin-top: -50px; */
-  /* position: relative; */
-  /* z-index: 2; */
 }
 .margin-left {
   margin-left: 5%;
@@ -414,11 +409,11 @@ label {
   display: list-item;
 }
 .div-comment {
-  border: 1px solid #00a1df73;
+  border: 1px solid #e4eefb;
   border-radius: 5px;
   font-family: "Ubuntu", sans-serif;
   width: -webkit-fill-available;
-  background-color: #4994e814;
+  background-color: #e4eefb;
 }
 .textArea-comment {
   resize: none;

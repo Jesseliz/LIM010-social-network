@@ -1,6 +1,5 @@
-// eslint-disable-next-line import/no-cycle
+/* eslint-disable import/no-cycle */
 import { savePost } from '../controller/post-controller.js';
-// eslint-disable-next-line import/no-cycle
 import { listNotes } from './post-view.js';
 
 export const home = (notes) => {
