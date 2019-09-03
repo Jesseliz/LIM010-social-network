@@ -80,7 +80,6 @@ export const listNotes = (objNote) => {
     });
 
   showLikePost(liElemnt, objNote.id);
-  // countComments(objNote.id);
 
   const allComents = liElemnt.querySelector(`#allComments-${objNote.id}`);
   const showComment = liElemnt.querySelector('#show-comment');
