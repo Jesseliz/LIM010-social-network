@@ -657,6 +657,7 @@ label {
   background: #eb1717;
   padding: 10px;
   border-radius: 50%;
+  cursor: pointer;
 }
 .iconEdit {
   color:#080808;
@@ -674,11 +675,13 @@ label {
   background: #f2f2f2;
   padding: 6px;
   border-radius: 50%;
+  cursor: pointer;
 }
 .show-comment {
   color: black;
   background: #fefefe;
   padding: 10px;
+  cursor: pointer;
   border-radius: 50%;
 }
 .btn-comment {
@@ -686,6 +689,7 @@ label {
   background: #e8d838;
   padding: 10px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .edit-comment {
@@ -700,4 +704,5 @@ label {
   background: #e8d838;
   padding: 10px;
   border-radius: 50%;
+  cursor: pointer;
 }
