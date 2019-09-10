@@ -1,6 +1,6 @@
 import MockFirebase from 'mock-cloud-firestore';
 import {
-  addLikeFirebase, showLikeFirebase, deleteLikeFirebase,
+  addLikeFirebase, deleteLikeFirebase, getAllLikes,
   addCommentFirebase, getAllComments, editCommentFirebase, deleteCommentFirebase,
 } from '../src/model/controller-likes.js';
 
@@ -14,14 +14,14 @@ const fixtureData = {
           privacidad: 'publico',
           timePost: '1 de septiembre de 2019 - 12:32 p. m.',
           user: 'user1',
-          userName: 'Alba',
+          userName: 'Jesseliz',
           __collection__: {
             likes: {
               __doc__: {
                 user1: {
                   idPost: 'a01',
                   idUser: 'user1',
-                  nameUser: 'Alba',
+                  nameUser: 'Jesseliz',
                 },
               },
             },
@@ -31,14 +31,14 @@ const fixtureData = {
                   idPost: 'a01',
                   idUser: 'user1',
                   comment: 'Comentario 1',
-                  nameUser: 'Alba',
+                  nameUser: 'Jesseliz',
                   timePost: '31 de agosto de 2019 - 2:19 p. m.',
                 },
                 c2: {
                   idPost: 'a01',
                   idUser: 'user2',
                   comment: 'Comentario 2',
-                  nameUser: 'Yesseliz',
+                  nameUser: 'Alba',
                   timePost: '31 de agosto de 2019 - 2:10 p. m.',
                 },
               },
@@ -64,17 +64,22 @@ global.firebase = new MockFirebase(fixtureData, { isNaiveSnapshotListenerEnabled
 describe('addLikeFirebase', () => {
   it('deberia poder agregar like a un post', done => addLikeFirebase('user3', 'Paola', 'a02')
     .then(() => {
-      showLikeFirebase('a02').onSnapshot((querySnapshot) => {
-        expect(querySnapshot.size).toBe(1);
+      getAllLikes('a02', (likes) => {
+        const result = likes.find(data => data.id === 'user3');
+        expect(result.id).toBe('user3');
+        done();
       });
-      done();
     }));
 });
 
 describe('deleteLikeFirebase', () => {
   it('deberia poder quitar like a un post', done => deleteLikeFirebase('user1', 'a01')
     .then(() => {
-      done();
+      getAllLikes('a01', (likes) => {
+        const result = likes.find(data => data.id === 'user1');
+        expect(result).toBe(undefined);
+        done();
+      });
     }));
 });
 

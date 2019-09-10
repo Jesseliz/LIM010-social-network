@@ -2,7 +2,7 @@ import { recoverUserName, changeViewToProfile, signOutUser } from '../controller
 import { allNotes, myPostNotes } from '../controller/post-controller.js';
 import { recoverDataProfile } from '../controller/profile-controller.js';
 
-export default () => {
+export const codeMeet = () => {
   const headerDiv = document.createElement('div');
   const headerContent = `
   <header>

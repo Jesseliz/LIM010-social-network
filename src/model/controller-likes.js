@@ -8,11 +8,23 @@ export const addLikeFirebase = (userUid, userName, postId) => firebase.firestore
     idPost: postId,
   });
 
+export const getAllLikes = (idPost, callback) => {
+  firebase.firestore().collection('post').doc(idPost).collection('likes')
+    .onSnapshot((querySnapshot) => {
+      const data = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+      });
+      callback(data);
+    });
+};
+
 export const deleteLikeFirebase = (user, postId) => firebase.firestore().collection('post').doc(postId).collection('likes')
   .doc(user)
   .delete();
 
-export const showLikeFirebase = idPost => firebase.firestore().collection('post').doc(idPost).collection('likes');
+/* export const showLikeFirebase = idPost => firebase.firestore().collection('post')
+.doc(idPost).collection('likes'); */
 
 export const addCommentFirebase = (userUid, userName, postId, text) => firebase.firestore().collection('post').doc(postId).collection('comment')
   .add({

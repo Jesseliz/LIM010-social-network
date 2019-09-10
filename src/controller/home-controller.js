@@ -22,7 +22,7 @@ export const recoverUserName = (userName, userProfileName, UserPhotoProfile, pho
 
 export const signOutUser = () => {
   signOutLogin().then(() => {
-    window.location.hash = '#/';
+    window.location.hash = '/';
   }, () => {
   });
 };

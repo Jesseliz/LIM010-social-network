@@ -5,7 +5,7 @@ import {
   showPostUserFirebase, uploadImage,
 } from '../model/controller-post.js';
 import {
-  addLikeFirebase, deleteLikeFirebase, showLikeFirebase, addCommentFirebase, editCommentFirebase,
+  addLikeFirebase, deleteLikeFirebase, addCommentFirebase, editCommentFirebase,
 } from '../model/controller-likes.js';
 import { home } from '../views/home-view.js';
 import { myPost } from '../views/myPost-view.js';
@@ -120,24 +120,25 @@ export const editComment = (idComment, idPost) => {
   });
 };
 
-export const showLikePost = (list, id) => {
+/* export const showLikePost = (list, id) => {
   const buttonLike = list.querySelector(`#like-${id}`);
   const buttonDislike = list.querySelector(`#dislike-${id}`);
-  const user = userCurrent();
-  showLikeFirebase(id)
-    .onSnapshot((querySnapshot) => {
-      document.getElementById(`counter-${id}`).innerHTML = querySnapshot.size;
-      querySnapshot.forEach((doc) => {
-        if (doc.data().idUser !== user.uid || !doc.exists) {
-          buttonLike.classList.remove('hide');
-          buttonDislike.classList.add('hide');
-        } else {
-          buttonLike.classList.add('hide');
-          buttonDislike.classList.remove('hide');
-        }
+  firebase.auth().onAuthStateChanged((user) => {
+    showLikeFirebase(id)
+      .onSnapshot((querySnapshot) => {
+        document.getElementById(`counter-${id}`).innerHTML = querySnapshot.size;
+        querySnapshot.forEach((doc) => {
+          if (doc.data().idUser !== user.uid || !doc.exists) {
+            buttonLike.classList.remove('hide');
+            buttonDislike.classList.add('hide');
+          } else {
+            buttonLike.classList.add('hide');
+            buttonDislike.classList.remove('hide');
+          }
+        });
       });
-    });
-};
+  });
+}; */
 
 export const deleteLikePost = (postId) => {
   const user = userCurrent().uid;

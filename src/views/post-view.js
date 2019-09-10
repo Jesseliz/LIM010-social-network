@@ -1,8 +1,8 @@
 /* eslint-disable import/no-cycle */
 import {
-  deletePost, edit, addLike, deleteLikePost, showLikePost, saveComment,
+  deletePost, edit, addLike, deleteLikePost, saveComment,
 } from '../controller/post-controller.js';
-import { getAllComments } from '../model/controller-likes.js';
+import { getAllComments, getAllLikes } from '../model/controller-likes.js';
 import { userCurrent } from '../model/controller-authentication.js';
 import { listComment } from './comment-view.js';
 
@@ -24,7 +24,7 @@ export const listNotes = (objNote) => {
         <p class="date-publication">${objNote.timePost}</p>
       </div>
       ${userCurrent().uid === objNote.user ? `
-      <span><i class="fa fa-trash btn-delete" id="delete-${objNote.id}" aria-hidden="true"></i><span>` : `<span class="hide"><i class="fa fa-trash" id="delete-${objNote.id}" aria-hidden="true"></i></span>`}
+      <span id="delete-${objNote.id}"><i class="fa fa-trash btn-delete" aria-hidden="true"></i><span>` : `<span id="delete-${objNote.id}" class="hide"><i class="fa fa-trash" aria-hidden="true"></i></span>`}
     </div>
     <div class="middle-post">
       <div class="textarea no-border padding" id="text-${objNote.id}" contentEditable="false">${objNote.notes}</div>
@@ -34,8 +34,8 @@ export const listNotes = (objNote) => {
     </div>
     <div class="botom-post padding">
       <div>
-      <i class="fa fa-heart-o heart-empty" aria-hidden="true" id="like-${objNote.id}" data-post="${objNote.id}"></i>
-      <i class="fa fa-heart hide heart-full" aria-hidden="true" id="dislike-${objNote.id}" data-post="${objNote.id}"></i>
+      <i class="fa fa-heart-o heart-empty hide" aria-hidden="true" id="like-${objNote.id}" data-post="${objNote.id}"></i>
+      <i class="fa fa-heart heart-full" aria-hidden="true" id="dislike-${objNote.id}" data-post="${objNote.id}"></i>
       <a id="counter-${objNote.id}" class="counter-heart"></a>
       </div>
       <div>
@@ -60,17 +60,43 @@ export const listNotes = (objNote) => {
     </div>
   </div>
       `;
+
+  const counter = liElemnt.querySelector(`#counter-${objNote.id}`);
+
+
   liElemnt.querySelector(`#delete-${objNote.id}`)
     .addEventListener('click', () => deletePost(objNote.id));
 
   liElemnt.querySelector(`#edit-${objNote.id}`)
     .addEventListener('click', () => edit(objNote.id));
 
-  liElemnt.querySelector(`#like-${objNote.id}`)
-    .addEventListener('click', () => addLike(objNote.id));
+  const buttonLike = liElemnt.querySelector(`#like-${objNote.id}`);
+  const buttonDislike = liElemnt.querySelector(`#dislike-${objNote.id}`);
 
-  liElemnt.querySelector(`#dislike-${objNote.id}`)
-    .addEventListener('click', () => deleteLikePost(objNote.id));
+  const callbackLikes = (likes) => {
+    counter.innerHTML = '';
+    counter.innerHTML = likes.length;
+    const user = likes.find(like => like.id === userCurrent().uid);
+    if (user === undefined) {
+      buttonDislike.classList.add('hide');
+      buttonLike.classList.remove('hide');
+      buttonLike.addEventListener('click', (e) => {
+        e.preventDefault();
+        addLike(objNote.id);
+        buttonDislike.classList.add('hide');
+        buttonLike.classList.remove('hide');
+      });
+    } else {
+      buttonDislike.addEventListener('click', (e) => {
+        e.preventDefault();
+        deleteLikePost(objNote.id);
+        buttonLike.classList.add('hide');
+        buttonDislike.classList.remove('hide');
+      });
+    }
+  };
+
+  getAllLikes(objNote.id, callbackLikes);
 
   liElemnt.querySelector(`#comment-${objNote.id}`)
     .addEventListener('click', () => {
@@ -78,8 +104,6 @@ export const listNotes = (objNote) => {
       saveComment(objNote.id);
       contNote.value = '';
     });
-
-  showLikePost(liElemnt, objNote.id);
 
   const allComents = liElemnt.querySelector(`#allComments-${objNote.id}`);
   const showComment = liElemnt.querySelector('#show-comment');
@@ -92,13 +116,13 @@ export const listNotes = (objNote) => {
       commentSection.classList.add('hide');
     }
   });
-
-  getAllComments(objNote.id, (coments) => {
+  const callbackComment = (coments) => {
     allComents.innerHTML = '';
     coments.forEach((comment) => {
       allComents.appendChild(listComment(comment));
     });
     countComent.innerHTML = coments.length;
-  });
+  };
+  getAllComments(objNote.id, callbackComment);
   return liElemnt;
 };
