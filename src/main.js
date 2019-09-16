@@ -7,13 +7,13 @@ const initRouter = () => {
 
 const init = () => {
   const firebaseConfig = {
-    apiKey: 'AIzaSyDRfwgljtnkk2mUrYDMcSEumDulfkHe9Uk',
-    authDomain: 'social-network-2c5f9.firebaseapp.com',
-    databaseURL: 'https://social-network-2c5f9.firebaseio.com',
-    projectId: 'social-network-2c5f9',
-    storageBucket: 'social-network-2c5f9.appspot.com',
-    messagingSenderId: '319072321809',
-    appId: '1:319072321809:web:c6c4023a67eb540e',
+    apiKey: 'AIzaSyCWivbURhE6qmYSjZSqxbaYsrZwL2YQqLQ',
+    authDomain: 'sosial-network-c0237.firebaseapp.com',
+    databaseURL: 'https://sosial-network-c0237.firebaseio.com',
+    projectId: 'sosial-network-c0237',
+    storageBucket: 'sosial-network-c0237.appspot.com',
+    messagingSenderId: '625296739587',
+    appId: '1:625296739587:web:f5e413abb9ab5386',
   };
   firebase.initializeApp(firebaseConfig);
   initRouter();
