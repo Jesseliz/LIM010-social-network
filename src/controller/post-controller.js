@@ -120,26 +120,6 @@ export const editComment = (idComment, idPost) => {
   });
 };
 
-/* export const showLikePost = (list, id) => {
-  const buttonLike = list.querySelector(`#like-${id}`);
-  const buttonDislike = list.querySelector(`#dislike-${id}`);
-  firebase.auth().onAuthStateChanged((user) => {
-    showLikeFirebase(id)
-      .onSnapshot((querySnapshot) => {
-        document.getElementById(`counter-${id}`).innerHTML = querySnapshot.size;
-        querySnapshot.forEach((doc) => {
-          if (doc.data().idUser !== user.uid || !doc.exists) {
-            buttonLike.classList.remove('hide');
-            buttonDislike.classList.add('hide');
-          } else {
-            buttonLike.classList.add('hide');
-            buttonDislike.classList.remove('hide');
-          }
-        });
-      });
-  });
-}; */
-
 export const deleteLikePost = (postId) => {
   const user = userCurrent().uid;
   const buttonLike = document.getElementById(`like-${postId}`);
