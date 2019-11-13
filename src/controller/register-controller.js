@@ -18,7 +18,8 @@ export const createProfile = (id, nameUser, emailUser) => {
   })
     .then(() => {
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log(error);
     });
 };
 
@@ -46,6 +47,7 @@ export const registerFunction = (event) => {
   createUser(email, password)
     .then(() => {
       const use = userCurrent();
+      console.log(use);
       createProfile(use.uid, nick, email);
       getName(use.uid);
       regMessageErrorLabel.classList.remove('show-message-error');
